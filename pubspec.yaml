@@ -1,0 +1,26 @@
+name: flutter_agent_skills
+description: Flutter-aware skills and project rules for AI coding agents (Claude Code, Codex). One command installs tested guidelines tailored to your project's stack.
+version: 0.1.0
+repository: https://github.com/Sujay-Dynamisch/Flutter-Agent-Skills
+topics:
+  - ai
+  - cli
+  - claude
+  - agents
+  - productivity
+
+environment:
+  sdk: ^3.5.0
+
+executables:
+  flutter_agent_skills:
+  fas: flutter_agent_skills
+
+dependencies:
+  args: ^2.5.0
+  path: ^1.9.0
+  yaml: ^3.1.2
+
+dev_dependencies:
+  lints: ^5.0.0
+  test: ^1.25.0
