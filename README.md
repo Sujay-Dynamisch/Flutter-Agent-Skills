@@ -1,126 +1,97 @@
 <div align="center">
 
-# 🧠 flutter_agent_skills
+<img src="https://raw.githubusercontent.com/Sujay-Dynamisch/Flutter-Agent-Skills/main/doc/banner.svg" alt="flutter_agent_skills — make AI coding agents write Flutter code the way your project does" width="100%">
 
-### Make AI coding agents write Flutter code the way *your* project does.
+<br>
 
-One command teaches **Claude Code** and **Codex** your stack, your architecture,<br>
-and your rules — so they stop guessing and start shipping clean, verified code.
+[![pub package](https://img.shields.io/pub/v/flutter_agent_skills?style=flat-square&logo=dart&logoColor=white&color=0175C2)](https://pub.dev/packages/flutter_agent_skills)
+[![pub points](https://img.shields.io/pub/points/flutter_agent_skills?style=flat-square&color=13B9FD)](https://pub.dev/packages/flutter_agent_skills/score)
+[![CI](https://img.shields.io/github/actions/workflow/status/Sujay-Dynamisch/Flutter-Agent-Skills/dart.yml?branch=main&style=flat-square&label=CI)](https://github.com/Sujay-Dynamisch/Flutter-Agent-Skills/actions/workflows/dart.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-7C9CFF?style=flat-square)](LICENSE)
 
-[![pub package](https://img.shields.io/pub/v/flutter_agent_skills.svg?label=pub&color=0175C2)](https://pub.dev/packages/flutter_agent_skills)
-[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-ready-D97757?logo=anthropic&logoColor=white)](#-claude-code-plugin)
-[![Codex](https://img.shields.io/badge/Codex-AGENTS.md-412991?logo=openai&logoColor=white)](#-what-it-writes)
-[![Dart](https://img.shields.io/badge/Dart-3.5%2B-0175C2?logo=dart&logoColor=white)](https://dart.dev)
-
-```bash
-dart pub global activate flutter_agent_skills && fas init
-```
+**[Get started](#get-started)** &nbsp;·&nbsp; **[Skills](#skills)** &nbsp;·&nbsp; **[How it works](#how-it-works)** &nbsp;·&nbsp; **[Plugin](#claude-code-plugin)** &nbsp;·&nbsp; **[Roadmap](#roadmap)**
 
 </div>
 
----
+<br>
 
-## 😩 The problem
+AI coding agents are fast, but they don't know your Flutter codebase. They add a second state-management library, hand-edit generated files, reformat files the task didn't touch, and report "done" before the analyzer passes.
 
-You ask an AI agent to *"add a settings screen"* and you get:
-
-- ❌ A **new state-management library** in your Riverpod app
-- ❌ Hand-edited `*.g.dart` files that break on the next `build_runner`
-- ❌ **Your whole project reformatted** in a 40-file diff
-- ❌ *"Done! ✅"* — while `flutter analyze` shows 12 errors
-
-## ✨ The fix
-
-`flutter_agent_skills` reads your `pubspec.yaml`, detects your stack, and installs **Flutter-specific skills and rules** your agent follows on every task.
+**flutter_agent_skills** fixes that with one command. It reads your `pubspec.yaml`, detects your stack, and installs skills and project rules for **Claude Code** and **Codex**.
 
 <table>
 <tr>
-<th>🤖 Without</th>
-<th>🚀 With <code>flutter_agent_skills</code></th>
-</tr>
-<tr>
-<td>
+<td width="33%" valign="top">
 
-```text
-> add a settings screen
-
-+ adds provider package
-+ creates SettingsController
-+ edits settings.g.dart by hand
-+ reformats 38 files
-"Done!"
-```
+### Follows your architecture
+Reuses your state management, routing and folder layout instead of inventing new ones.
 
 </td>
-<td>
+<td width="33%" valign="top">
 
-```text
-> add a settings screen
+### Keeps diffs small
+No unrequested dependencies, no edits to generated files, and no reformatting of files the task didn't touch.
 
-✓ detected Riverpod + go_router
-✓ mirrors features/profile/ layout
-✓ AsyncNotifier + widget test
-✓ runs build_runner, formats 4 files
-✓ flutter analyze: no issues
-✓ flutter test: 18 passed
-```
+</td>
+<td width="33%" valign="top">
+
+### Checks its work
+A task isn't done until `flutter analyze` is clean and the relevant tests pass.
 
 </td>
 </tr>
 </table>
 
----
-
-## ⚡ Quick start
+## Get started
 
 ```bash
-# 1. Install the CLI
-dart pub global activate flutter_agent_skills
+dart pub add dev:flutter_agent_skills
+dart run flutter_agent_skills init
+```
 
-# 2. Run it inside your Flutter project
-cd my_flutter_app
+That's the whole setup. Open the project in Claude Code or Codex and start building.
+
+> [!TIP]
+> Safe to re-run at any time. Your own content in `CLAUDE.md` and `AGENTS.md` is never touched.
+
+<details>
+<summary><b>Global install</b></summary>
+<br>
+
+```bash
+dart pub global activate flutter_agent_skills
 fas init
 ```
 
-```text
-created    .claude/skills/flutter-feature/SKILL.md
-created    .claude/skills/flutter-guidelines/SKILL.md
-created    .claude/skills/flutter-verify/SKILL.md
-updated    CLAUDE.md
-created    AGENTS.md
+The `fas` shortcut needs the pub cache `bin` folder on your `PATH` (Windows: `%LOCALAPPDATA%\Pub\Cache\bin`). Without it, run `dart pub global run flutter_agent_skills init`.
 
-Done.
-```
+</details>
 
-That's it. Open Claude Code or Codex and start building. 🎉
+<details>
+<summary><b>CLI options</b></summary>
+<br>
 
-### Options
-
-| Command | What it does |
+| Option | Description |
 |---|---|
-| `fas init` | Set up Claude Code **and** Codex |
-| `fas init -t claude` | Claude Code only |
-| `fas init -t codex` | Codex only (`AGENTS.md`) |
-| `fas init --dry-run` | Preview changes, write nothing |
-| `fas init -d path/to/app` | Run on another directory |
-| `fas list` | List bundled skills |
+| `-t, --target` | Agents to configure: `claude`, `codex` (default: both) |
+| `-d, --dir` | Project directory (default: current directory) |
+| `--dry-run` | Preview changes without writing files |
+| `list` | Print the bundled skills |
+| `--version` | Print the installed version |
 
----
+</details>
 
-## 🧩 Skills
+## Skills
 
-| | Skill | What your agent learns |
+| | Skill | What it does |
 |:-:|---|---|
-| 🧭 | **`flutter-guidelines`** | Think before coding · Simplicity first · Surgical changes · Goal-driven execution — tuned for Flutter: no surprise dependencies, never hand-edit generated files, format only what changed. |
-| 🏗️ | **`flutter-feature`** | Builds screens and features that look like *your team* wrote them: model → data → state → UI → route → tests, using your existing Riverpod / Bloc / Provider / GetX patterns. |
-| ✅ | **`flutter-verify`** | A real verification loop — `build_runner` → `dart format` → `flutter analyze` → `flutter test` — fix, repeat, and report honest results. |
+| **01** | `flutter-guidelines` | Core working rules: think before coding, simplicity first, surgical changes, goal-driven execution, tuned for Flutter. |
+| **02** | `flutter-feature` | Builds features in your existing structure: model, data, state, UI, route and tests. Supports Riverpod, Bloc, Provider, GetX and `setState`. |
+| **03** | `flutter-verify` | Runs code generation, formatting, analysis and tests in a loop until clean, then reports the real results. |
 
----
+## How it works
 
-## 🔍 Stack detection
-
-`fas init` writes a project profile your agent reads before every task:
+**1. Detect.** `init` reads `pubspec.yaml` and builds a profile of your stack.
 
 ```markdown
 ### Project profile (detected from pubspec.yaml)
@@ -131,77 +102,89 @@ That's it. Open Claude Code or Codex and start building. 🎉
 - Other key packages: Firebase, dio, mocktail
 ```
 
-| Category | Detected |
+**2. Install.** It writes the skills and the profile where each agent looks for them.
+
+| File | Read by |
 |---|---|
-| 🔄 State management | Riverpod · Bloc · Provider · GetX · MobX · Signals |
-| 🧭 Routing | go_router · auto_route · beamer |
-| ⚙️ Code generation | build_runner · freezed · json_serializable · riverpod_generator · injectable |
-| 📦 Others | Firebase · dio · http · drift · isar · hive · get_it · mocktail · mockito · flutter_hooks |
+| `.claude/skills/*/SKILL.md` | Claude Code |
+| `CLAUDE.md` | Claude Code |
+| `AGENTS.md` | Codex and other `AGENTS.md`-compatible agents |
 
----
+**3. Build.** Your agent reads the profile and rules before every task, then follows the matching skill.
 
-## 📁 What it writes
+<details>
+<summary><b>Supported packages</b></summary>
+<br>
 
-| File | Used by |
+| Category | Packages |
 |---|---|
-| `.claude/skills/*/SKILL.md` | 🟠 Claude Code skills |
-| `CLAUDE.md` | 🟠 Claude Code project rules + stack profile |
-| `AGENTS.md` | 🟣 Codex and other `AGENTS.md`-aware agents |
+| State management | Riverpod, Bloc, Provider, GetX, MobX, Signals |
+| Routing | go_router, auto_route, beamer |
+| Code generation | build_runner, freezed, json_serializable, riverpod_generator, injectable |
+| Other | Firebase, dio, http, drift, isar, hive, get_it, mocktail, mockito, flutter_hooks |
 
-> [!TIP]
-> **Safe to rerun.** Rules live inside a managed block (`<!-- flutter_agent_skills:start/end -->`). Your own `CLAUDE.md` / `AGENTS.md` content is never touched, and running `fas init` again only refreshes that block.
+</details>
 
----
+## Claude Code plugin
 
-## 🔌 Claude Code plugin
-
-Prefer plugins? Install the skills straight from GitHub:
+Prefer plugins? Install the skills directly in Claude Code:
 
 ```text
 /plugin marketplace add Sujay-Dynamisch/Flutter-Agent-Skills
 /plugin install flutter-agent-skills@flutter-agent-skills
 ```
 
-> The plugin installs the skills only. Use `fas init` to also get the stack profile in `CLAUDE.md` / `AGENTS.md`.
+> [!NOTE]
+> The plugin installs skills only. Run `init` to also add the project profile to `CLAUDE.md` and `AGENTS.md`.
 
----
+## Programmatic use
 
-## 🗺️ Roadmap
+```dart
+import 'dart:io';
 
-- [x] Claude Code skills + `CLAUDE.md`
-- [x] Codex via `AGENTS.md`
-- [x] Claude Code plugin marketplace
-- [ ] Cursor rules & GitHub Copilot instructions
-- [ ] Hooks: auto `dart format` + `flutter analyze` after edits
-- [ ] Skills: golden tests, performance audit, accessibility audit
-- [ ] Skills: Flutter version migrations, pub.dev release prep
-- [ ] Eval suite: every skill tested against sample apps
+import 'package:flutter_agent_skills/flutter_agent_skills.dart';
 
-Have an idea? [Open an issue](https://github.com/Sujay-Dynamisch/Flutter-Agent-Skills/issues) 💡
+void main() {
+  final profile = ProjectProfile.fromPubspec(File('pubspec.yaml').readAsStringSync());
+  print(profile.stateManagement); // [Riverpod]
 
----
-
-## 🤝 Contributing
-
-Skills live in [`skills/`](skills/) and the rules template in [`templates/`](templates/).
-
-```bash
-dart run tool/bundle.dart   # rebuild the bundled content
-dart test                   # make sure everything passes
+  Installer(Directory.current, dryRun: true)
+      .install({AgentTarget.claude})
+      .forEach(print);
+}
 ```
 
-PRs for new skills are very welcome — keep them short, Flutter-specific, and verifiable.
+## Roadmap
 
-## 🙏 Credits
+- [x] Claude Code skills and `CLAUDE.md`
+- [x] Codex support via `AGENTS.md`
+- [x] Claude Code plugin marketplace
+- [ ] Cursor rules and GitHub Copilot instructions
+- [ ] Hooks for automatic formatting and analysis after edits
+- [ ] Skills for golden tests, performance and accessibility audits
+- [ ] Skills for Flutter version migrations and pub.dev releases
+- [ ] Evaluation suite running each skill against sample apps
 
-`flutter-guidelines` is adapted from the excellent [Karpathy guidelines](https://github.com/forrestchang/andrej-karpathy-skills) (MIT), inspired by [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on LLM coding pitfalls.
+Have an idea? [Open an issue](https://github.com/Sujay-Dynamisch/Flutter-Agent-Skills/issues).
+
+## Contributing
+
+Skills live in [`skills/`](skills/) and the rules template in [`templates/`](templates/). After editing them:
+
+```bash
+dart run tool/bundle.dart   # regenerate bundled content
+dart test
+```
+
+New skills should be concise, Flutter-specific and verifiable.
+
+## Acknowledgements
+
+`flutter-guidelines` is adapted from the [Karpathy guidelines](https://github.com/forrestchang/andrej-karpathy-skills) (MIT), based on [Andrej Karpathy's observations](https://x.com/karpathy/status/2015883857489522876) on common LLM coding pitfalls.
 
 <div align="center">
+<br>
 
----
-
-**If this saves you from one bad AI diff, give it a ⭐ — it helps other Flutter devs find it.**
-
-MIT © flutter_agent_skills contributors
+MIT License · Built for the Flutter community
 
 </div>

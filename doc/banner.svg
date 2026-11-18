@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0A0F1E"/>
+      <stop offset="1" stop-color="#0E2240"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0.2" cy="0.1" r="0.7">
+      <stop offset="0" stop-color="#13B9FD" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#13B9FD" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#13B9FD"/>
+      <stop offset="1" stop-color="#7C9CFF"/>
+    </linearGradient>
+    <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
+      <path d="M32 0H0V32" fill="none" stroke="#FFFFFF" stroke-opacity="0.04"/>
+    </pattern>
+    <clipPath id="card"><rect width="1280" height="400" rx="24"/></clipPath>
+  </defs>
+
+  <g clip-path="url(#card)">
+    <rect width="1280" height="400" fill="url(#bg)"/>
+    <rect width="1280" height="400" fill="url(#grid)"/>
+    <rect width="1280" height="400" fill="url(#glow)"/>
+  </g>
+
+  <!-- Left: title -->
+  <g font-family="Segoe UI, Inter, Helvetica, Arial, sans-serif">
+    <rect x="72" y="92" width="152" height="30" rx="15" fill="#13B9FD" fill-opacity="0.12" stroke="#13B9FD" stroke-opacity="0.4"/>
+    <text x="148" y="112" text-anchor="middle" font-size="14" font-weight="600" fill="#7FD8FF" letter-spacing="0.5">FOR AI AGENTS</text>
+    <text x="72" y="178" font-size="50" font-weight="700" fill="#FFFFFF" font-family="SFMono-Regular, Consolas, Menlo, monospace">flutter_agent_skills</text>
+    <rect x="72" y="196" width="96" height="4" rx="2" fill="url(#accent)"/>
+    <text x="72" y="244" font-size="22" fill="#C7D2E5">Make AI coding agents write Flutter code</text>
+    <text x="72" y="274" font-size="22" fill="#C7D2E5">the way <tspan fill="#FFFFFF" font-weight="600">your project</tspan> does.</text>
+    <text x="72" y="326" font-size="16" fill="#8090AB">Claude Code  ·  Codex  ·  Riverpod  ·  Bloc  ·  go_router</text>
+  </g>
+
+  <!-- Right: terminal -->
+  <g transform="translate(750 70)">
+    <rect width="458" height="260" rx="14" fill="#060A14" stroke="#FFFFFF" stroke-opacity="0.08"/>
+    <circle cx="24" cy="22" r="6" fill="#FF5F57"/>
+    <circle cx="44" cy="22" r="6" fill="#FEBC2E"/>
+    <circle cx="64" cy="22" r="6" fill="#28C840"/>
+    <line x1="0" y1="44" x2="458" y2="44" stroke="#FFFFFF" stroke-opacity="0.06"/>
+    <g font-family="SFMono-Regular, Consolas, Menlo, monospace" font-size="15">
+      <text x="24" y="80" fill="#7C9CFF">$ <tspan fill="#E6EDF7">dart run flutter_agent_skills init</tspan></text>
+      <text x="24" y="116" fill="#8090AB">detected  <tspan fill="#E6EDF7">Riverpod · go_router · freezed</tspan></text>
+      <text x="24" y="146" fill="#3DDC97">✓ <tspan fill="#C7D2E5">.claude/skills/flutter-guidelines</tspan></text>
+      <text x="24" y="172" fill="#3DDC97">✓ <tspan fill="#C7D2E5">.claude/skills/flutter-feature</tspan></text>
+      <text x="24" y="198" fill="#3DDC97">✓ <tspan fill="#C7D2E5">.claude/skills/flutter-verify</tspan></text>
+      <text x="24" y="224" fill="#3DDC97">✓ <tspan fill="#C7D2E5">CLAUDE.md  ·  AGENTS.md</tspan></text>
+    </g>
+  </g>
+</svg>
