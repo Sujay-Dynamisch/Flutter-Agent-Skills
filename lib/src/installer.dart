@@ -5,10 +5,19 @@ import 'package:path/path.dart' as p;
 import 'bundle.g.dart';
 import 'profile.dart';
 
-enum AgentTarget { claude, codex }
+/// An AI coding agent that `fas init` can configure.
+enum AgentTarget {
+  /// Claude Code: installs `.claude/skills/` and a rules block in `CLAUDE.md`.
+  claude,
 
+  /// Codex (and other `AGENTS.md`-aware agents): a rules block in `AGENTS.md`.
+  codex,
+}
+
+/// Marker that opens the managed block in `CLAUDE.md` / `AGENTS.md`.
 const blockStart = '<!-- flutter_agent_skills:start -->';
-const blockEnd = '<!-- flutter_agent_skills:end -->';
+/// Marker that closes the managed block in `CLAUDE.md` / `AGENTS.md`.
+const blockEnd ='<!-- flutter_agent_skills:end -->';
 
 /// Names of the bundled skills, e.g. `flutter-verify`.
 List<String> get skillNames => {
@@ -29,13 +38,29 @@ String upsertBlock(String existing, String body) {
   return '${existing.trimRight()}\n\n$block\n';
 }
 
+/// Installs bundled skills and project rules into a Dart/Flutter project.
+///
+/// ```dart
+/// final actions = Installer(Directory('my_app')).install({AgentTarget.claude});
+/// actions.forEach(print); // e.g. "created    CLAUDE.md"
+/// ```
 class Installer {
+  /// Creates an installer for the project at [root].
+  ///
+  /// When [dryRun] is true, [install] reports what it would do without
+  /// writing any files.
   Installer(this.root, {this.dryRun = false});
 
+  /// The project directory; must contain a `pubspec.yaml`.
   final Directory root;
+
+  /// Whether to only report changes instead of writing them.
   final bool dryRun;
 
-  /// Writes files for [targets]; returns a human-readable list of actions.
+  /// Writes files for [targets] and returns one line per file, prefixed with
+  /// `created`, `updated`, or `unchanged`.
+  ///
+  /// Throws a [StateError] if [root] has no `pubspec.yaml`.
   List<String> install(Set<AgentTarget> targets) {
     final pubspec = File(p.join(root.path, 'pubspec.yaml'));
     if (!pubspec.existsSync()) {
