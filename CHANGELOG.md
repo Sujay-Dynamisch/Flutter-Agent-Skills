@@ -1,3 +1,8 @@
+## 0.1.2
+
+- Refreshed README with a banner and clearer getting-started steps.
+- Publishing workflow uses the `pub.dev` GitHub environment.
+
 ## 0.1.1
 
 - Add dartdoc comments to the public API.

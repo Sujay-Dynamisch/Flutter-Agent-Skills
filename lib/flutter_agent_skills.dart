@@ -5,4 +5,4 @@ export 'src/installer.dart' show AgentTarget, Installer, skillNames, upsertBlock
 export 'src/profile.dart' show ProjectProfile;
 
 /// The version of this package.
-const packageVersion = '0.1.1';
+const packageVersion = '0.1.2';
