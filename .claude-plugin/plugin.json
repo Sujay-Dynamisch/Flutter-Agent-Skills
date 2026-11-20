@@ -1,6 +1,6 @@
 {
   "name": "flutter-agent-skills",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "Flutter-aware skills for coding agents: guidelines, feature scaffolding that follows your architecture, and a format/analyze/test verification loop.",
   "license": "MIT",
   "keywords": ["flutter", "dart", "guidelines", "testing", "riverpod", "bloc"]

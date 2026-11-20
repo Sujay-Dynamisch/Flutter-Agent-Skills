@@ -35,8 +35,8 @@ No unrequested dependencies, no edits to generated files, and no reformatting of
 </td>
 <td width="33%" valign="top">
 
-### Checks its work
-A task isn't done until `flutter analyze` is clean and the relevant tests pass.
+### Guards your dependencies
+Blocks made-up package names and flags risky ones before the agent adds them.
 
 </td>
 </tr>
@@ -76,6 +76,8 @@ The `fas` shortcut needs the pub cache `bin` folder on your `PATH` (Windows: `%L
 | `-t, --target` | Agents to configure: `claude`, `codex` (default: both) |
 | `-d, --dir` | Project directory (default: current directory) |
 | `--dry-run` | Preview changes without writing files |
+| `--no-hooks` | Skip the dependency-guard hook in `.claude/settings.json` |
+| `check <name>...` | Check packages on pub.dev (`--pubspec` checks all dependencies; exits 1 if any don't exist) |
 | `list` | Print the bundled skills |
 | `--version` | Print the installed version |
 
@@ -88,6 +90,25 @@ The `fas` shortcut needs the pub cache `bin` folder on your `PATH` (Windows: `%L
 | **01** | `flutter-guidelines` | Core working rules: think before coding, simplicity first, surgical changes, goal-driven execution, tuned for Flutter. |
 | **02** | `flutter-feature` | Builds features in your existing structure: model, data, state, UI, route and tests. Supports Riverpod, Bloc, Provider, GetX and `setState`. |
 | **03** | `flutter-verify` | Runs code generation, formatting, analysis and tests in a loop until clean, then reports the real results. |
+
+## Dependency guard
+
+AI agents regularly suggest packages that don't exist, and attackers register those hallucinated names with malicious code ("slopsquatting"). `init` adds a Claude Code hook that checks every `flutter pub add` and `pubspec.yaml` edit against pub.dev **before it runs**.
+
+| Finding | Result |
+|---|---|
+| Package doesn't exist on pub.dev | **Blocked**, and the agent is told to pick a real package |
+| Discontinued, unlisted, published in the last 30 days, or unverified with low adoption | **You're asked** to confirm |
+| Everything else | Runs normally |
+
+```console
+$ dart run flutter_agent_skills check dio flutter_magic_ai_sdk flutter_gemma
+ok     dio
+block  flutter_magic_ai_sdk: does not exist on pub.dev (possibly a hallucinated name)
+warn   flutter_gemma: discontinued, replaced by flutter_edge_ai
+```
+
+Use `check --pubspec` in CI to audit all dependencies. If pub.dev can't be reached, the hook never blocks the agent.
 
 ## How it works
 
@@ -108,6 +129,7 @@ The `fas` shortcut needs the pub cache `bin` folder on your `PATH` (Windows: `%L
 |---|---|
 | `.claude/skills/*/SKILL.md` | Claude Code |
 | `CLAUDE.md` | Claude Code |
+| `.claude/settings.json` | Claude Code (dependency-guard hook; other settings are kept) |
 | `AGENTS.md` | Codex and other `AGENTS.md`-compatible agents |
 
 **3. Build.** Your agent reads the profile and rules before every task, then follows the matching skill.
@@ -159,6 +181,7 @@ void main() {
 - [x] Claude Code skills and `CLAUDE.md`
 - [x] Codex support via `AGENTS.md`
 - [x] Claude Code plugin marketplace
+- [x] Dependency guard against hallucinated and risky packages
 - [ ] Cursor rules and GitHub Copilot instructions
 - [ ] Hooks for automatic formatting and analysis after edits
 - [ ] Skills for golden tests, performance and accessibility audits

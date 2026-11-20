@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Flutter-aware skills for AI coding agents",
-    "version": "0.1.2"
+    "version": "0.2.0"
   },
   "plugins": [
     {
       "name": "flutter-agent-skills",
       "source": "./",
       "description": "Flutter guidelines, architecture-aware feature scaffolding, and a verification loop (format, analyze, test).",
-      "version": "0.1.2",
+      "version": "0.2.0",
       "keywords": ["flutter", "dart", "guidelines", "testing"],
       "category": "development"
     }

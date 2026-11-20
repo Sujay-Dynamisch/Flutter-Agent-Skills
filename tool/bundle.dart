@@ -10,7 +10,8 @@ String generateBundle(String packageRoot) {
   for (final dir in ['skills', 'templates']) {
     final root = Directory(p.join(packageRoot, dir));
     for (final f in root.listSync(recursive: true).whereType<File>()) {
-      final rel = p.posix.joinAll(p.split(p.relative(f.path, from: packageRoot)));
+      final rel =
+          p.posix.joinAll(p.split(p.relative(f.path, from: packageRoot)));
       files[rel] = f.readAsStringSync().replaceAll('\r\n', '\n');
     }
   }
