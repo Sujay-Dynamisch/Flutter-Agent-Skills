@@ -76,9 +76,10 @@ class ProjectProfile {
       for (final key in ['dependencies', 'dev_dependencies'])
         if (map[key] is YamlMap) ...(map[key] as YamlMap).keys.cast<String>(),
     };
-    List<String> pick(Map<String, String> table) =>
-        {for (final e in table.entries) if (deps.contains(e.key)) e.value}
-            .toList();
+    List<String> pick(Map<String, String> table) => {
+          for (final e in table.entries)
+            if (deps.contains(e.key)) e.value
+        }.toList();
     return ProjectProfile(
       name: map['name']?.toString() ?? 'unknown',
       isFlutter: deps.contains('flutter'),
